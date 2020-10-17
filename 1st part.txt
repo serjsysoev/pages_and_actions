@@ -1,0 +1,698 @@
+kali@kali:~$ ifconfig
+bash: ifconfig: command not found
+kali@kali:~$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:1f:30:76 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 86314sec preferred_lft 86314sec
+    inet6 fe80::a00:27ff:fe1f:3076/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 100
+    link/none 
+    inet 10.10.15.81/23 brd 10.10.15.255 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 dead:beef:2::114f/64 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::3e43:6fab:a35c:9a3a/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+kali@kali:~$ ip link set dev tun0 down
+RTNETLINK answers: Operation not permitted
+kali@kali:~$ sudo ip link set dev tun0 down
+[sudo] password for kali: 
+kali@kali:~$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:1f:30:76 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 86101sec preferred_lft 86101sec
+    inet6 fe80::a00:27ff:fe1f:3076/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: tun0: <POINTOPOINT,MULTICAST,NOARP> mtu 1500 qdisc pfifo_fast state DOWN group default qlen 100                                                                                                                                         
+    link/none                                                                                                                                                                                                                              
+    inet 10.10.15.81/23 brd 10.10.15.255 scope global tun0                                                                                                                                                                                 
+       valid_lft forever preferred_lft forever                                                                                                                                                                                             
+kali@kali:~$ sudo ip link set dev tun0 up
+kali@kali:~$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000                                                                                                                                                
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00                                                                                                                                                                                  
+    inet 127.0.0.1/8 scope host lo                                                                                                                                                                                                         
+       valid_lft forever preferred_lft forever                                                                                                                                                                                             
+    inet6 ::1/128 scope host                                                                                                                                                                                                               
+       valid_lft forever preferred_lft forever                                                                                                                                                                                             
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000                                                                                                                                      
+    link/ether 08:00:27:1f:30:76 brd ff:ff:ff:ff:ff:ff                                                                                                                                                                                     
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0                                                                                                                                                               
+       valid_lft 86088sec preferred_lft 86088sec                                                                                                                                                                                           
+    inet6 fe80::a00:27ff:fe1f:3076/64 scope link noprefixroute                                                                                                                                                                             
+       valid_lft forever preferred_lft forever                                                                                                                                                                                             
+3: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 100                                                                                                                          
+    link/none                                                                                                                                                                                                                              
+    inet 10.10.15.81/23 brd 10.10.15.255 scope global tun0                                                                                                                                                                                 
+       valid_lft forever preferred_lft forever                                                                                                                                                                                             
+    inet6 fe80::3e43:6fab:a35c:9a3a/64 scope link stable-privacy                                                                                                                                                                           
+       valid_lft forever preferred_lft forever
+kali@kali:~$ hostname
+kali
+kali@kali:~$ hostname -i
+127.0.1.1
+kali@kali:~$ hostname -I
+10.0.2.15 10.10.15.81 
+kali@kali:~$ netstat --listening
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+udp        0      0 0.0.0.0:34212           0.0.0.0:*                          
+raw6       0      0 [::]:ipv6-icmp          [::]:*                  7          
+Active UNIX domain sockets (only servers)
+Proto RefCnt Flags       Type       State         I-Node   Path
+unix  2      [ ACC ]     STREAM     LISTENING     15389    /run/systemd/journal/io.systemd.journal
+unix  2      [ ACC ]     STREAM     LISTENING     18181    @/tmp/.X11-unix/X0
+unix  2      [ ACC ]     STREAM     LISTENING     19441    @/tmp/dbus-dDLCX80qlJ
+unix  2      [ ACC ]     STREAM     LISTENING     11821    /run/systemd/private
+unix  2      [ ACC ]     STREAM     LISTENING     11839    /run/systemd/fsck.progress
+unix  2      [ ACC ]     STREAM     LISTENING     20509    @/tmp/.ICE-unix/756
+unix  2      [ ACC ]     STREAM     LISTENING     11851    /run/systemd/journal/stdout
+unix  2      [ ACC ]     SEQPACKET  LISTENING     11857    /run/udev/control
+unix  2      [ ACC ]     STREAM     LISTENING     19332    /tmp/ssh-H1sNJJUVKwXT/agent.756
+unix  2      [ ACC ]     STREAM     LISTENING     26712    /run/user/1000/keyring/control
+unix  2      [ ACC ]     STREAM     LISTENING     18182    /tmp/.X11-unix/X0
+unix  2      [ ACC ]     STREAM     LISTENING     20510    /tmp/.ICE-unix/756
+unix  2      [ ACC ]     STREAM     LISTENING     19128    /run/user/1000/systemd/private
+unix  2      [ ACC ]     STREAM     LISTENING     19134    /run/user/1000/bus
+unix  2      [ ACC ]     STREAM     LISTENING     19136    /run/user/1000/gnupg/S.dirmngr
+unix  2      [ ACC ]     STREAM     LISTENING     19138    /run/user/1000/gnupg/S.gpg-agent.browser
+unix  2      [ ACC ]     STREAM     LISTENING     19142    /run/user/1000/gnupg/S.gpg-agent.extra
+unix  2      [ ACC ]     STREAM     LISTENING     19144    /run/user/1000/gnupg/S.gpg-agent.ssh
+unix  2      [ ACC ]     STREAM     LISTENING     19146    /run/user/1000/gnupg/S.gpg-agent
+unix  2      [ ACC ]     STREAM     LISTENING     19148    /run/user/1000/pk-debconf-socket
+unix  2      [ ACC ]     STREAM     LISTENING     19150    /run/user/1000/pulse/native
+unix  2      [ ACC ]     STREAM     LISTENING     14828    /run/dbus/system_bus_socket
+unix  2      [ ACC ]     STREAM     LISTENING     14832    /run/pcscd/pcscd.comm
+kali@kali:~$ netstat -lu
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+udp        0      0 0.0.0.0:34212           0.0.0.0:*                          
+kali@kali:~$ ping 10.10.10.191
+PING 10.10.10.191 (10.10.10.191) 56(84) bytes of data.
+64 bytes from 10.10.10.191: icmp_seq=187 ttl=63 time=230 ms
+64 bytes from 10.10.10.191: icmp_seq=188 ttl=63 time=110 ms
+64 bytes from 10.10.10.191: icmp_seq=189 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=190 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=191 ttl=63 time=274 ms
+64 bytes from 10.10.10.191: icmp_seq=192 ttl=63 time=110 ms
+64 bytes from 10.10.10.191: icmp_seq=193 ttl=63 time=158 ms
+64 bytes from 10.10.10.191: icmp_seq=194 ttl=63 time=112 ms
+64 bytes from 10.10.10.191: icmp_seq=195 ttl=63 time=203 ms
+64 bytes from 10.10.10.191: icmp_seq=196 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=197 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=198 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=199 ttl=63 time=110 ms
+64 bytes from 10.10.10.191: icmp_seq=200 ttl=63 time=182 ms
+64 bytes from 10.10.10.191: icmp_seq=201 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=202 ttl=63 time=159 ms
+64 bytes from 10.10.10.191: icmp_seq=203 ttl=63 time=165 ms
+64 bytes from 10.10.10.191: icmp_seq=204 ttl=63 time=179 ms
+64 bytes from 10.10.10.191: icmp_seq=205 ttl=63 time=109 ms
+64 bytes from 10.10.10.191: icmp_seq=206 ttl=63 time=181 ms
+64 bytes from 10.10.10.191: icmp_seq=207 ttl=63 time=131 ms
+^C
+--- 10.10.10.191 ping statistics ---
+207 packets transmitted, 21 received, 89.8551% packet loss, time 210551ms
+rtt min/avg/max/mdev = 108.934/146.047/274.178/46.631 ms
+kali@kali:~$ traceroute 10.10.10.191
+traceroute to 10.10.10.191 (10.10.10.191), 30 hops max, 60 byte packets
+ 1  10.10.14.1 (10.10.14.1)  109.163 ms  109.042 ms  108.955 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+kali@kali:~$ traceroute 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  10.0.2.2 (10.0.2.2)  0.222 ms  0.225 ms  0.196 ms
+ 2  * * *
+ 3  * * *
+ 4  * * *
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+kali@kali:~$ host google.com
+google.com has address 173.194.73.113
+google.com has address 173.194.73.138
+google.com has address 173.194.73.139
+google.com has address 173.194.73.101
+google.com has address 173.194.73.100
+google.com has address 173.194.73.102
+google.com has IPv6 address 2a00:1450:4010:c0d::71
+google.com has IPv6 address 2a00:1450:4010:c0d::66
+google.com has IPv6 address 2a00:1450:4010:c0d::8b
+google.com has IPv6 address 2a00:1450:4010:c0d::64
+google.com mail is handled by 20 alt1.aspmx.l.google.com.
+google.com mail is handled by 30 alt2.aspmx.l.google.com.
+google.com mail is handled by 40 alt3.aspmx.l.google.com.
+google.com mail is handled by 10 aspmx.l.google.com.
+google.com mail is handled by 50 alt4.aspmx.l.google.com.
+kali@kali:~$ host 173.194.73.113
+113.73.194.173.in-addr.arpa domain name pointer lq-in-f113.1e100.net.
+kali@kali:~$ dig google.com
+
+; <<>> DiG 9.11.14-3-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 63993
+;; flags: qr rd ra; QUERY: 1, ANSWER: 6, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.                    IN      A
+
+;; ANSWER SECTION:
+google.com.             284     IN      A       173.194.73.138
+google.com.             284     IN      A       173.194.73.113
+google.com.             284     IN      A       173.194.73.102
+google.com.             284     IN      A       173.194.73.100
+google.com.             284     IN      A       173.194.73.139
+google.com.             284     IN      A       173.194.73.101
+
+;; Query time: 3 msec
+;; SERVER: 192.168.0.1#53(192.168.0.1)
+;; WHEN: Fri Oct 16 23:54:23 UTC 2020
+;; MSG SIZE  rcvd: 135
+
+kali@kali:~$ dig smtp.google.com -t A
+
+; <<>> DiG 9.11.14-3-Debian <<>> smtp.google.com -t A
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3620
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;smtp.google.com.               IN      A
+
+;; ANSWER SECTION:
+smtp.google.com.        275     IN      A       173.194.73.26
+
+;; Query time: 5 msec
+;; SERVER: 192.168.0.1#53(192.168.0.1)
+;; WHEN: Fri Oct 16 23:55:19 UTC 2020
+;; MSG SIZE  rcvd: 60
+
+kali@kali:~$ whois google.com
+   Domain Name: GOOGLE.COM
+   Registry Domain ID: 2138514_DOMAIN_COM-VRSN
+   Registrar WHOIS Server: whois.markmonitor.com
+   Registrar URL: http://www.markmonitor.com
+   Updated Date: 2019-09-09T15:39:04Z
+   Creation Date: 1997-09-15T04:00:00Z
+   Registry Expiry Date: 2028-09-14T04:00:00Z
+   Registrar: MarkMonitor Inc.
+   Registrar IANA ID: 292
+   Registrar Abuse Contact Email: abusecomplaints@markmonitor.com
+   Registrar Abuse Contact Phone: +1.2083895740
+   Domain Status: clientDeleteProhibited https://icann.org/epp#clientDeleteProhibited
+   Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
+   Domain Status: clientUpdateProhibited https://icann.org/epp#clientUpdateProhibited
+   Domain Status: serverDeleteProhibited https://icann.org/epp#serverDeleteProhibited
+   Domain Status: serverTransferProhibited https://icann.org/epp#serverTransferProhibited
+   Domain Status: serverUpdateProhibited https://icann.org/epp#serverUpdateProhibited
+   Name Server: NS1.GOOGLE.COM
+   Name Server: NS2.GOOGLE.COM
+   Name Server: NS3.GOOGLE.COM
+   Name Server: NS4.GOOGLE.COM
+   DNSSEC: unsigned
+   URL of the ICANN Whois Inaccuracy Complaint Form: https://www.icann.org/wicf/
+>>> Last update of whois database: 2020-10-16T23:55:42Z <<<
+
+For more information on Whois status codes, please visit https://icann.org/epp
+
+NOTICE: The expiration date displayed in this record is the date the
+registrar's sponsorship of the domain name registration in the registry is
+currently set to expire. This date does not necessarily reflect the expiration
+date of the domain name registrant's agreement with the sponsoring
+registrar.  Users may consult the sponsoring registrar's Whois database to
+view the registrar's reported date of expiration for this registration.
+
+TERMS OF USE: You are not authorized to access or query our Whois
+database through the use of electronic processes that are high-volume and
+automated except as reasonably necessary to register domain names or
+modify existing registrations; the Data in VeriSign Global Registry
+Services' ("VeriSign") Whois database is provided by VeriSign for
+information purposes only, and to assist persons in obtaining information
+about or related to a domain name registration record. VeriSign does not
+guarantee its accuracy. By submitting a Whois query, you agree to abide
+by the following terms of use: You agree that you may use this Data only
+for lawful purposes and that under no circumstances will you use this Data
+to: (1) allow, enable, or otherwise support the transmission of mass
+unsolicited, commercial advertising or solicitations via e-mail, telephone,
+or facsimile; or (2) enable high volume, automated, electronic processes
+that apply to VeriSign (or its computer systems). The compilation,
+repackaging, dissemination or other use of this Data is expressly
+prohibited without the prior written consent of VeriSign. You agree not to
+use electronic processes that are automated and high-volume to access or
+query the Whois database except as reasonably necessary to register
+domain names or modify existing registrations. VeriSign reserves the right
+to restrict your access to the Whois database in its sole discretion to ensure
+operational stability.  VeriSign may restrict or terminate your access to the
+Whois database for failure to abide by these terms of use. VeriSign
+reserves the right to modify these terms at any time.
+
+The Registry database contains ONLY .COM, .NET, .EDU domains and
+Registrars.
+Domain Name: google.com
+Registry Domain ID: 2138514_DOMAIN_COM-VRSN
+Registrar WHOIS Server: whois.markmonitor.com
+Registrar URL: http://www.markmonitor.com
+Updated Date: 2019-09-09T08:39:04-0700
+Creation Date: 1997-09-15T00:00:00-0700
+Registrar Registration Expiration Date: 2028-09-13T00:00:00-0700
+Registrar: MarkMonitor, Inc.
+Registrar IANA ID: 292
+Registrar Abuse Contact Email: abusecomplaints@markmonitor.com
+Registrar Abuse Contact Phone: +1.2083895770
+Domain Status: clientUpdateProhibited (https://www.icann.org/epp#clientUpdateProhibited)
+Domain Status: clientTransferProhibited (https://www.icann.org/epp#clientTransferProhibited)
+Domain Status: clientDeleteProhibited (https://www.icann.org/epp#clientDeleteProhibited)
+Domain Status: serverUpdateProhibited (https://www.icann.org/epp#serverUpdateProhibited)
+Domain Status: serverTransferProhibited (https://www.icann.org/epp#serverTransferProhibited)
+Domain Status: serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)
+Registrant Organization: Google LLC
+Registrant State/Province: CA
+Registrant Country: US
+Registrant Email: Select Request Email Form at https://domains.markmonitor.com/whois/google.com
+Admin Organization: Google LLC
+Admin State/Province: CA
+Admin Country: US
+Admin Email: Select Request Email Form at https://domains.markmonitor.com/whois/google.com
+Tech Organization: Google LLC
+Tech State/Province: CA
+Tech Country: US
+Tech Email: Select Request Email Form at https://domains.markmonitor.com/whois/google.com
+Name Server: ns3.google.com
+Name Server: ns4.google.com
+Name Server: ns1.google.com
+Name Server: ns2.google.com
+DNSSEC: unsigned
+URL of the ICANN WHOIS Data Problem Reporting System: http://wdprs.internic.net/
+>>> Last update of WHOIS database: 2020-10-16T16:54:16-0700 <<<
+
+For more information on WHOIS status codes, please visit:
+  https://www.icann.org/resources/pages/epp-status-codes
+
+If you wish to contact this domain’s Registrant, Administrative, or Technical
+contact, and such email address is not visible above, you may do so via our web
+form, pursuant to ICANN’s Temporary Specification. To verify that you are not a
+robot, please enter your email address to receive a link to a page that
+facilitates email communication with the relevant contact(s).
+
+Web-based WHOIS:
+  https://domains.markmonitor.com/whois
+
+If you have a legitimate interest in viewing the non-public WHOIS details, send
+your request and the reasons for your request to whoisrequest@markmonitor.com
+and specify the domain name in the subject line. We will review that request and
+may ask for supporting documentation and explanation.
+
+The data in MarkMonitor’s WHOIS database is provided for information purposes,
+and to assist persons in obtaining information about or related to a domain
+name’s registration record. While MarkMonitor believes the data to be accurate,
+the data is provided "as is" with no guarantee or warranties regarding its
+accuracy.
+
+By submitting a WHOIS query, you agree that you will use this data only for
+lawful purposes and that, under no circumstances will you use this data to:
+  (1) allow, enable, or otherwise support the transmission by email, telephone,
+or facsimile of mass, unsolicited, commercial advertising, or spam; or
+  (2) enable high volume, automated, or electronic processes that send queries,
+data, or email to MarkMonitor (or its systems) or the domain name contacts (or
+its systems).
+
+MarkMonitor reserves the right to modify these terms at any time.
+
+By submitting this query, you agree to abide by this policy.
+
+MarkMonitor Domain Management(TM)
+Protecting companies and consumers in a digital world.
+
+Visit MarkMonitor at https://www.markmonitor.com
+Contact us at +1.8007459229
+In Europe, at +44.02032062220
+--
+kali@kali:~$ nmap -A --top-ports 3000 10.10.10.191
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-10-16 23:57 UTC
+Stats: 0:00:46 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 99.29% done; ETC: 23:58 (0:00:00 remaining)
+Nmap scan report for 10.10.10.191
+Host is up (0.15s latency).
+Not shown: 2998 filtered ports
+PORT   STATE  SERVICE VERSION
+21/tcp closed ftp
+80/tcp open   http    Apache httpd 2.4.41 ((Ubuntu))
+|_http-generator: Blunder
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+|_http-title: Blunder | A blunder of interesting facts
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 47.73 seconds
+kali@kali:~$ sudo tcpdump -i eth0
+[sudo] password for kali: 
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+00:02:05.019327 IP 185.77.152.100.1337 > 10.0.2.15.35364: UDP, length 41
+00:02:05.019602 IP 10.0.2.15.35364 > 185.77.152.100.1337: UDP, length 41
+00:02:05.019713 IP 10.0.2.15.38546 > 192.168.0.1.domain: 47516+ PTR? 15.2.0.10.in-addr.arpa. (40)
+00:02:05.023064 IP 192.168.0.1.domain > 10.0.2.15.38546: 47516 NXDomain* 0/1/0 (99)
+00:02:05.023166 IP 10.0.2.15.58605 > 192.168.0.1.domain: 27421+ PTR? 100.152.77.185.in-addr.arpa. (45)
+00:02:05.026418 IP 192.168.0.1.domain > 10.0.2.15.58605: 27421 NXDomain 0/1/0 (105)
+00:02:05.026580 IP 10.0.2.15.35597 > 192.168.0.1.domain: 51571+ PTR? 1.0.168.192.in-addr.arpa. (42)
+00:02:05.029677 IP 192.168.0.1.domain > 10.0.2.15.35597: 51571 NXDomain* 0/1/0 (101)
+^C
+8 packets captured
+8 packets received by filter
+0 packets dropped by kernel
+kali@kali:~$ sudo tcpdump host 192.168.0.1
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+00:03:18.065782 IP 10.0.2.15.55315 > 192.168.0.1.domain: 24424+ A? detectportal.firefox.com. (42)
+00:03:18.066326 IP 10.0.2.15.55315 > 192.168.0.1.domain: 13679+ AAAA? detectportal.firefox.com. (42)
+00:03:18.066932 IP 10.0.2.15.48069 > 192.168.0.1.domain: 3315+ PTR? 1.0.168.192.in-addr.arpa. (42)
+00:03:18.069980 IP 192.168.0.1.domain > 10.0.2.15.55315: 24424 5/0/0 CNAME detectportal.prod.mozaws.net., CNAME detectportal.firefox.com-v2.edgesuite.net., CNAME a1089.dscd.akamai.net., A 188.234.145.155, A 188.234.145.136 (200)
+00:03:18.069997 IP 192.168.0.1.domain > 10.0.2.15.55315: 13679 5/0/0 CNAME detectportal.prod.mozaws.net., CNAME detectportal.firefox.com-v2.edgesuite.net., CNAME a1089.dscd.akamai.net., AAAA 2a02:2698:a100:4::bcea:9188, AAAA 2a02:2698:a100:4::bcea:919b (224)
+00:03:18.071573 IP 192.168.0.1.domain > 10.0.2.15.48069: 3315 NXDomain* 0/1/0 (101)
+00:03:18.073447 IP 10.0.2.15.45181 > 192.168.0.1.domain: 16950+ PTR? 15.2.0.10.in-addr.arpa. (40)
+00:03:18.077583 IP 192.168.0.1.domain > 10.0.2.15.45181: 16950 NXDomain* 0/1/0 (99)
+00:03:18.573452 IP 10.0.2.15.43232 > 192.168.0.1.domain: 37100+ A? www.kali.org. (30)
+00:03:18.573788 IP 10.0.2.15.43232 > 192.168.0.1.domain: 52979+ AAAA? www.kali.org. (30)
+00:03:18.575351 IP 10.0.2.15.37285 > 192.168.0.1.domain: 60068+ A? kali.training. (31)
+00:03:18.575423 IP 10.0.2.15.37285 > 192.168.0.1.domain: 53932+ AAAA? kali.training. (31)
+00:03:18.575670 IP 10.0.2.15.38425 > 192.168.0.1.domain: 731+ A? tools.kali.org. (32)
+00:03:18.575736 IP 10.0.2.15.38425 > 192.168.0.1.domain: 57054+ AAAA? tools.kali.org. (32)
+00:03:18.621368 IP 192.168.0.1.domain > 10.0.2.15.43232: 37100 1/0/0 A 192.124.249.10 (46)
+00:03:18.624371 IP 192.168.0.1.domain > 10.0.2.15.38425: 57054 0/1/0 (92)
+00:03:18.624444 IP 192.168.0.1.domain > 10.0.2.15.38425: 731 1/0/0 A 192.124.249.6 (48)
+00:03:18.624570 IP 10.0.2.15.50904 > 192.168.0.1.domain: 35214+ A? forums.kali.org. (33)
+00:03:18.624623 IP 10.0.2.15.50904 > 192.168.0.1.domain: 16275+ AAAA? forums.kali.org. (33)
+00:03:18.624783 IP 192.168.0.1.domain > 10.0.2.15.43232: 52979 0/1/0 (90)
+00:03:18.624884 IP 10.0.2.15.46520 > 192.168.0.1.domain: 38183+ A? bugs.kali.org. (31)
+00:03:18.624940 IP 10.0.2.15.46520 > 192.168.0.1.domain: 21290+ AAAA? bugs.kali.org. (31)
+00:03:18.628495 IP 192.168.0.1.domain > 10.0.2.15.37285: 60068 1/0/0 A 192.124.249.3 (47)
+00:03:18.628989 IP 192.168.0.1.domain > 10.0.2.15.37285: 53932 0/1/0 (91)
+00:03:18.629068 IP 10.0.2.15.37959 > 192.168.0.1.domain: 40900+ A? www.offensive-security.com. (44)
+00:03:18.629129 IP 10.0.2.15.37959 > 192.168.0.1.domain: 32201+ AAAA? www.offensive-security.com. (44)
+00:03:18.669303 IP 192.168.0.1.domain > 10.0.2.15.50904: 16275 0/1/0 (93)
+00:03:18.669362 IP 192.168.0.1.domain > 10.0.2.15.50904: 35214 1/0/0 A 192.124.249.12 (49)
+00:03:18.669365 IP 192.168.0.1.domain > 10.0.2.15.46520: 38183 1/0/0 A 192.124.249.169 (47)
+00:03:18.669367 IP 192.168.0.1.domain > 10.0.2.15.46520: 21290 0/1/0 (91)
+00:03:18.669804 IP 10.0.2.15.43078 > 192.168.0.1.domain: 35878+ A? www.exploit-db.com. (36)
+00:03:18.669874 IP 10.0.2.15.43078 > 192.168.0.1.domain: 558+ AAAA? www.exploit-db.com. (36)
+00:03:18.670054 IP 10.0.2.15.51730 > 192.168.0.1.domain: 47422+ A? home.pearsonvue.com. (37)
+00:03:18.670108 IP 10.0.2.15.51730 > 192.168.0.1.domain: 64322+ AAAA? home.pearsonvue.com. (37)
+00:03:18.678001 IP 192.168.0.1.domain > 10.0.2.15.37959: 32201 0/1/0 (104)
+00:03:18.678058 IP 192.168.0.1.domain > 10.0.2.15.37959: 40900 1/0/0 A 192.124.249.5 (60)
+00:03:18.678524 IP 10.0.2.15.55641 > 192.168.0.1.domain: 64415+ A? www.backtrack-linux.org. (41)
+00:03:18.678584 IP 10.0.2.15.55641 > 192.168.0.1.domain: 34214+ AAAA? www.backtrack-linux.org. (41)
+00:03:18.726593 IP 192.168.0.1.domain > 10.0.2.15.55641: 34214 0/1/0 (101)
+00:03:18.726606 IP 192.168.0.1.domain > 10.0.2.15.55641: 64415 1/0/0 A 192.124.249.8 (57)
+00:03:18.726654 IP 10.0.2.15.54871 > 192.168.0.1.domain: 47700+ A? www.facebook.com. (34)
+00:03:18.726711 IP 10.0.2.15.54871 > 192.168.0.1.domain: 57432+ AAAA? www.facebook.com. (34)
+00:03:18.732427 IP 192.168.0.1.domain > 10.0.2.15.54871: 47700 2/0/0 CNAME star-mini.c10r.facebook.com., A 31.13.72.36 (79)
+00:03:18.732440 IP 192.168.0.1.domain > 10.0.2.15.54871: 57432 2/0/0 CNAME star-mini.c10r.facebook.com., AAAA 2a03:2880:f10a:83:face:b00c:0:25de (91)
+00:03:18.732637 IP 10.0.2.15.51576 > 192.168.0.1.domain: 27535+ A? twitter.com. (29)
+00:03:18.732713 IP 10.0.2.15.51576 > 192.168.0.1.domain: 34195+ AAAA? twitter.com. (29)
+00:03:18.736699 IP 192.168.0.1.domain > 10.0.2.15.51576: 27535 1/0/0 A 104.244.42.1 (45)
+00:03:18.736882 IP 192.168.0.1.domain > 10.0.2.15.51576: 34195 0/1/0 (101)
+00:03:18.737580 IP 10.0.2.15.54040 > 192.168.0.1.domain: 3881+ A? www.linkedin.com. (34)
+00:03:18.737644 IP 10.0.2.15.54040 > 192.168.0.1.domain: 5421+ AAAA? www.linkedin.com. (34)
+00:03:18.740182 IP 192.168.0.1.domain > 10.0.2.15.54040: 3881 1/0/0 A 188.186.157.49 (50)
+00:03:18.740260 IP 192.168.0.1.domain > 10.0.2.15.54040: 3881 1/0/0 A 188.186.157.49 (50)
+00:03:18.740262 IP 192.168.0.1.domain > 10.0.2.15.54040: 3881 2/0/0 CNAME pop-tln1-alpha.www.linkedin.com., A 185.63.144.1 (79)
+00:03:18.740264 IP 192.168.0.1.domain > 10.0.2.15.54040: 5421 2/0/0 CNAME pop-tln1-alpha.www.linkedin.com., AAAA 2a05:f500:11:101::b93f:9001 (91)
+00:03:18.765104 IP 192.168.0.1.domain > 10.0.2.15.43078: 558 0/1/0 (96)
+00:03:18.765116 IP 192.168.0.1.domain > 10.0.2.15.43078: 35878 1/0/0 A 192.124.249.13 (52)
+00:03:18.791569 IP 10.0.2.15.55144 > 192.168.0.1.domain: 22371+ A? search.services.mozilla.com. (45)
+00:03:18.792009 IP 10.0.2.15.55144 > 192.168.0.1.domain: 6003+ AAAA? search.services.mozilla.com. (45)
+00:03:18.803196 IP 192.168.0.1.domain > 10.0.2.15.55144: 6003 1/1/0 CNAME search.r53-2.services.mozilla.com. (154)
+00:03:18.810714 IP 192.168.0.1.domain > 10.0.2.15.55144: 22371 4/0/0 CNAME search.r53-2.services.mozilla.com., A 52.13.211.193, A 35.161.199.137, A 54.148.7.60 (120)
+00:03:18.938301 IP 192.168.0.1.domain > 10.0.2.15.51730: 64322 2/1/0 CNAME pearsonproductionsite.azurewebsites.net., CNAME waws-prod-blu-023.sip.azurewebsites.windows.net. (221)
+00:03:18.951596 IP 192.168.0.1.domain > 10.0.2.15.51730: 47422 3/0/0 CNAME pearsonproductionsite.azurewebsites.net., CNAME waws-prod-blu-023.sip.azurewebsites.windows.net., A 137.117.66.167 (164)
+00:03:19.274965 IP 10.0.2.15.47331 > 192.168.0.1.domain: 41911+ A? ocsp.digicert.com. (35)
+00:03:19.275072 IP 10.0.2.15.47331 > 192.168.0.1.domain: 31167+ AAAA? ocsp.digicert.com. (35)
+00:03:19.279705 IP 192.168.0.1.domain > 10.0.2.15.47331: 41911 2/0/0 CNAME cs9.wac.phicdn.net., A 93.184.220.29 (83)
+00:03:19.279763 IP 192.168.0.1.domain > 10.0.2.15.47331: 31167 1/1/0 CNAME cs9.wac.phicdn.net. (132)
+00:03:20.555985 IP 10.0.2.15.44905 > 192.168.0.1.domain: 62355+ A? snippets.cdn.mozilla.net. (42)
+00:03:20.556227 IP 10.0.2.15.44905 > 192.168.0.1.domain: 2971+ AAAA? snippets.cdn.mozilla.net. (42)
+00:03:20.559952 IP 192.168.0.1.domain > 10.0.2.15.44905: 62355 5/0/0 CNAME d228z91au11ukj.cloudfront.net., A 52.85.47.77, A 52.85.47.52, A 52.85.47.120, A 52.85.47.82 (146)
+00:03:20.560013 IP 192.168.0.1.domain > 10.0.2.15.44905: 2971 1/1/0 CNAME d228z91au11ukj.cloudfront.net. (163)
+00:03:21.598631 IP 10.0.2.15.39572 > 192.168.0.1.domain: 51301+ A? lifars.com. (28)
+00:03:21.598758 IP 10.0.2.15.39572 > 192.168.0.1.domain: 39019+ AAAA? lifars.com. (28)
+00:03:21.598871 IP 10.0.2.15.40983 > 192.168.0.1.domain: 33534+ A? www.maltego.com. (33)
+00:03:21.598928 IP 10.0.2.15.40983 > 192.168.0.1.domain: 7170+ AAAA? www.maltego.com. (33)
+00:03:21.599031 IP 10.0.2.15.34637 > 192.168.0.1.domain: 7249+ A? www.eliteprospects.com. (40)
+00:03:21.599079 IP 10.0.2.15.34637 > 192.168.0.1.domain: 55891+ AAAA? www.eliteprospects.com. (40)
+00:03:21.613304 IP 192.168.0.1.domain > 10.0.2.15.34637: 55891 1/1/0 CNAME d2yewi9br30npr.cloudfront.net. (165)
+00:03:21.613367 IP 192.168.0.1.domain > 10.0.2.15.34637: 7249 5/0/0 CNAME d2yewi9br30npr.cloudfront.net., A 52.85.47.61, A 52.85.47.17, A 52.85.47.101, A 52.85.47.65 (147)
+00:03:21.613877 IP 10.0.2.15.38900 > 192.168.0.1.domain: 20380+ A? forum.hackthebox.eu. (37)
+00:03:21.614004 IP 10.0.2.15.38900 > 192.168.0.1.domain: 65440+ AAAA? forum.hackthebox.eu. (37)
+00:03:21.622679 IP 192.168.0.1.domain > 10.0.2.15.38900: 20380 3/0/0 A 104.20.66.68, A 104.20.55.68, A 172.67.1.1 (85)
+00:03:21.622767 IP 192.168.0.1.domain > 10.0.2.15.38900: 65440 3/0/0 AAAA 2606:4700:10::6814:3744, AAAA 2606:4700:10::ac43:101, AAAA 2606:4700:10::6814:4244 (121)
+00:03:21.623002 IP 10.0.2.15.41283 > 192.168.0.1.domain: 62536+ A? github.com. (28)
+00:03:21.623117 IP 10.0.2.15.41283 > 192.168.0.1.domain: 36428+ AAAA? github.com. (28)
+00:03:21.627108 IP 192.168.0.1.domain > 10.0.2.15.41283: 62536 1/0/0 A 140.82.121.4 (44)
+00:03:21.627336 IP 192.168.0.1.domain > 10.0.2.15.41283: 36428 0/1/0 (93)
+00:03:21.627503 IP 10.0.2.15.52051 > 192.168.0.1.domain: 42358+ A? qiita.com. (27)
+00:03:21.627616 IP 10.0.2.15.52051 > 192.168.0.1.domain: 54651+ AAAA? qiita.com. (27)
+00:03:21.672771 IP 192.168.0.1.domain > 10.0.2.15.52051: 54651 3/0/0 AAAA 2406:da14:add:902:3867:685d:c093:172, AAAA 2406:da14:add:900:cf17:6cca:bcb8:ee49, AAAA 2406:da14:add:901:7793:fcf0:517c:a6a1 (111)
+00:03:21.679343 IP 192.168.0.1.domain > 10.0.2.15.39572: 51301 1/0/0 A 208.97.144.40 (44)
+00:03:21.682238 IP 192.168.0.1.domain > 10.0.2.15.39572: 39019 0/1/0 (96)
+00:03:21.683580 IP 10.0.2.15.60884 > 192.168.0.1.domain: 31252+ A? www.hackthebox.eu. (35)
+00:03:21.683653 IP 10.0.2.15.60884 > 192.168.0.1.domain: 8730+ AAAA? www.hackthebox.eu. (35)
+00:03:21.706195 IP 192.168.0.1.domain > 10.0.2.15.60884: 8730 3/0/0 AAAA 2606:4700:10::6814:4244, AAAA 2606:4700:10::ac43:101, AAAA 2606:4700:10::6814:3744 (119)
+00:03:21.706259 IP 192.168.0.1.domain > 10.0.2.15.60884: 31252 3/0/0 A 172.67.1.1, A 104.20.66.68, A 104.20.55.68 (83)
+00:03:21.706735 IP 10.0.2.15.49801 > 192.168.0.1.domain: 62371+ A? docker.registry.htb. (37)
+00:03:21.706866 IP 10.0.2.15.49801 > 192.168.0.1.domain: 4521+ AAAA? docker.registry.htb. (37)
+00:03:21.713262 IP 192.168.0.1.domain > 10.0.2.15.52051: 42358 3/0/0 A 54.238.44.205, A 54.92.88.68, A 13.113.176.36 (75)
+00:03:21.715070 IP 10.0.2.15.53923 > 192.168.0.1.domain: 35199+ A? support.mozilla.org. (37)
+...
+^C
+823 packets captured
+823 packets received by filter
+0 packets dropped by kernel
+kali@kali:~$ sudo iptables -S
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+kali@kali:~$ sudo iptables -A INPUT ! -s 192.168.0.0/24 -p tcp -m tcp -m multiport --dports 22,10000 -j DROP
+kali@kali:~$ sudo iptables -S
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+-A INPUT ! -s 192.168.0.0/24 -p tcp -m tcp -m multiport --dports 22,10000 -j DROP
+kali@kali:~$ sudo iptables -D INPUT ! -s 192.168.0.0/24 -p tcp -m tcp -m multiport --dports 22,10000 -j DROP
+kali@kali:~$ sudo iptables -S
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+kali@kali:~$ wget https://raw.githubusercontent.com/spbu-math-cs/prog-2020-virt-mem-serjsysoev/master/README.md?token=aaaaaaaaaaaaa
+--2020-10-17 00:07:41--  https://raw.githubusercontent.com/spbu-math-cs/prog-2020-virt-mem-serjsysoev/master/README.md?token=aaaaaaaaaaaaa
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.244.133
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.244.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 9876 (9.6K) [text/plain]
+Saving to: ‘README.md?token=aaaaaaaaaaaaa’
+
+README.md?token=aaaaaaaaaaaaa              100%[=======================================================================================================================================>]   9.64K  --.-KB/s    in 0.001s  
+
+2020-10-17 00:07:41 (14.4 MB/s) - ‘README.md?token=aaaaaaaaaaaaa’ saved [9876/9876]
+
+kali@kali:~$ rm README.md\?token\=aaaaaaaaaaaaa 
+kali@kali:~$ wget -q --show-progress --recursive --no-clobber --page-requisites --html-extension --convert-links --domains linuxjournal.com https://www.linuxjournal.com/content/downloading-entire-web-site-wget
+Both --no-clobber and --convert-links were specified, only --convert-links will be used.
+www.linuxjournal.com/content/downloading-entire-web-site-w     [  <=>                                                                                                                                   ]  40.01K   110KB/s    in 0.4s    
+www.linuxjournal.com/robots.txt                            100%[=======================================================================================================================================>]   1.56K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/favicon.ico       100%[=======================================================================================================================================>]   1.37K  --.-KB/s    in 0s      
+www.linuxjournal.com/node/1007425.html                         [ <=>                                                                                                                                    ]  40.01K   219KB/s    in 0.2s    
+www.linuxjournal.com/modules/contrib/poll/css/poll.base.cs 100%[=======================================================================================================================================>]     255  --.-KB/s    in 0s      
+www.linuxjournal.com/modules/contrib/poll/css/poll.theme.c 100%[=======================================================================================================================================>]     446  --.-KB/s    in 0s      
+www.linuxjournal.com/libraries/shariff/shariff.complete.cs 100%[=======================================================================================================================================>]  40.21K   222KB/s    in 0.2s    
+www.linuxjournal.com/modules/contrib/webform/modules/webfo 100%[=======================================================================================================================================>]     751  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/css/style.css?qhl 100%[=======================================================================================================================================>] 203.92K   372KB/s    in 0.5s    
+www.linuxjournal.com/themes/linuxjournal/css/fonts.css?qhl 100%[=======================================================================================================================================>]   1.20K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/css/ccpa.css      100%[=======================================================================================================================================>]   3.95K  --.-KB/s    in 0s      
+www.linuxjournal.com/index.html                                [ <=>                                                                                                                                    ]  56.79K  --.-KB/s    in 0.005s  
+www.linuxjournal.com/themes/linuxjournal/images/ljlogo.png 100%[=======================================================================================================================================>]  13.74K  76.3KB/s    in 0.2s    
+www.linuxjournal.com/tag/cloud.html                            [  <=>                                                                                                                                   ]  72.02K   132KB/s    in 0.5s    
+www.linuxjournal.com/tag/containers.html                       [ <=>                                                                                                                                    ]  67.97K   375KB/s    in 0.2s    
+www.linuxjournal.com/tag/desktop.html                          [ <=>                                                                                                                                    ]  71.43K   387KB/s    in 0.2s    
+www.linuxjournal.com/tag/kernel.html                           [ <=>                                                                                                                                    ]  74.50K   409KB/s    in 0.2s    
+www.linuxjournal.com/tag/mobile.html                           [ <=>                                                                                                                                    ]  71.04K   398KB/s    in 0.2s    
+www.linuxjournal.com/tag/networking.html                       [  <=>                                                                                                                                   ]  69.46K   138KB/s    in 0.5s    
+www.linuxjournal.com/tag/privacy.html                          [ <=>                                                                                                                                    ]  73.80K   405KB/s    in 0.2s    
+www.linuxjournal.com/tag/programming.html                      [ <=>                                                                                                                                    ]  72.60K   400KB/s    in 0.2s    
+www.linuxjournal.com/tag/security.html                         [ <=>                                                                                                                                    ]  73.84K   413KB/s    in 0.2s    
+www.linuxjournal.com/tag/servers.html                          [ <=>                                                                                                                                    ]  69.29K   382KB/s    in 0.2s    
+www.linuxjournal.com/tag/sysadmin.html                         [  <=>                                                                                                                                   ]  72.43K   133KB/s    in 0.5s    
+www.linuxjournal.com/news.html                                 [ <=>                                                                                                                                    ]  57.10K   312KB/s    in 0.2s    
+www.linuxjournal.com/books.html                                [ <=>                                                                                                                                    ]  75.30K   411KB/s    in 0.2s    
+www.linuxjournal.com/popular.html                              [ <=>                                                                                                                                    ]  50.95K  --.-KB/s    in 0.004s  
+www.linuxjournal.com/recent.html                               [ <=>                                                                                                                                    ]  50.47K  --.-KB/s    in 0.005s  
+www.linuxjournal.com/tag/how-tos.html                          [  <=>                                                                                                                                   ]  74.37K   137KB/s    in 0.5s    
+www.linuxjournal.com/tag/tech-tips.html                        [  <=>                                                                                                                                   ]  72.89K   134KB/s    in 0.5s    
+www.linuxjournal.com/user/1002681.html                         [ <=>                                                                                                                                    ]  31.58K   172KB/s    in 0.2s    
+www.linuxjournal.com/sites/default/files/styles/360_250/pu 100%[=======================================================================================================================================>]  10.97K  --.-KB/s    in 0.001s  
+www.linuxjournal.com/content/how-secure-your-website-opens     [ <=>                                                                                                                                    ]  54.33K   295KB/s    in 0.2s    
+www.linuxjournal.com/sites/default/files/styles/75x75_squa 100%[=======================================================================================================================================>]   2.04K  --.-KB/s    in 0s      
+www.linuxjournal.com/users/tedley-meralus.html                 [ <=>                                                                                                                                    ]  31.37K  --.-KB/s    in 0.003s  
+www.linuxjournal.com/content/pretty-good-privacy-pgp-and-d     [ <=>                                                                                                                                    ]  52.32K   288KB/s    in 0.2s    
+www.linuxjournal.com/sites/default/files/styles/75x75_squa 100%[=======================================================================================================================================>]   2.69K  --.-KB/s    in 0s      
+www.linuxjournal.com/users/ankur-kothiwall.html                [ <=>                                                                                                                                    ]  30.86K  --.-KB/s    in 0.004s  
+www.linuxjournal.com/content/mark-text-vs-typora-best-mark     [ <=>                                                                                                                                    ]  46.25K   256KB/s    in 0.2s    
+www.linuxjournal.com/sites/default/files/styles/75x75_squa 100%[=======================================================================================================================================>]   2.45K  --.-KB/s    in 0s      
+www.linuxjournal.com/users/sarvottam-kumar.html                [ <=>                                                                                                                                    ]  32.04K  --.-KB/s    in 0.003s  
+www.linuxjournal.com/content/quick-tutorial-how-use-shell-     [ <=>                                                                                                                                    ]  42.43K  --.-KB/s    in 0.004s  
+www.linuxjournal.com/sites/default/files/styles/75x75_squa 100%[=======================================================================================================================================>]   1.90K  --.-KB/s    in 0s      
+www.linuxjournal.com/users/nawaz-abbasi.html                   [ <=>                                                                                                                                    ]  31.35K  --.-KB/s    in 0.004s  
+www.linuxjournal.com/content/how-kill-zombie-processes-lin     [ <=>                                                                                                                                    ]  41.65K  --.-KB/s    in 0.002s  
+www.linuxjournal.com/sites/default/files/styles/75x75_squa 100%[=======================================================================================================================================>]   2.04K  --.-KB/s    in 0s      
+www.linuxjournal.com/content/linux-command-line-interface-     [ <=>                                                                                                                                    ]  52.71K  --.-KB/s    in 0.006s  
+www.linuxjournal.com/sites/default/files/styles/75x75_squa 100%[=======================================================================================================================================>]   6.66K  --.-KB/s    in 0s      
+www.linuxjournal.com/users/antonio-riso.html                   [ <=>                                                                                                                                    ]  30.63K  --.-KB/s    in 0.003s  
+www.linuxjournal.com/sponsors.html                             [ <=>                                                                                                                                    ]  30.81K  --.-KB/s    in 0.003s  
+www.linuxjournal.com/content/masthead.html                     [ <=>                                                                                                                                    ]  34.32K  --.-KB/s    in 0.002s  
+www.linuxjournal.com/author.html                               [ <=>                                                                                                                                    ]  32.16K  --.-KB/s    in 0.002s  
+www.linuxjournal.com/form/contact.html                         [ <=>                                                                                                                                    ]  32.76K  --.-KB/s    in 0.001s  
+www.linuxjournal.com/rss_feeds.html                            [ <=>                                                                                                                                    ]  30.62K  --.-KB/s    in 0.001s  
+www.linuxjournal.com/aboutus.html                              [ <=>                                                                                                                                    ]  30.93K  --.-KB/s    in 0.003s  
+www.linuxjournal.com/themes/contrib/bootstrap/js/drupal.bo 100%[=======================================================================================================================================>]  13.86K  --.-KB/s    in 0.001s  
+www.linuxjournal.com/themes/contrib/bootstrap/js/attribute 100%[=======================================================================================================================================>]   9.88K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/contrib/bootstrap/js/theme.js? 100%[=======================================================================================================================================>]   5.12K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   4.72K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   2.23K  --.-KB/s    in 0.001s  
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   3.73K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   6.97K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   5.85K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   4.63K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   9.75K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]  16.33K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   3.09K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   4.60K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   3.81K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/bootstrap/assets/ 100%[=======================================================================================================================================>]   1.79K  --.-KB/s    in 0s      
+www.linuxjournal.com/themes/linuxjournal/js/lj-consentmana 100%[=======================================================================================================================================>]   1.33K  --.-KB/s    in 0s      
+^C
+kali@kali:~$ curl example.org | grep example
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1256  100  1256    0     0   5533      0 --:--:-- --:--:-- --:--:--  5557
+    <p>This domain is for use in illustrative examples in documents. You may use this
+    <p><a href="https://www.iana.org/domains/example">More information...</a></p>
+kali@kali:~$ ssh 192.168.0.101
+The authenticity of host '192.168.0.101 (192.168.0.101)' can't be established.
+ECDSA key fingerprint is SHA256:cSfd4aGoa/wT/oaebwo7brlPe26taChEeUa5xGiVUD4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.0.101' (ECDSA) to the list of known hosts.
+kali@192.168.0.101's password: 
+
+kali@kali:~$ sudo ssh -L 80:192.168.0.101:80 192.168.0.101
+[sudo] password for kali: 
+The authenticity of host '192.168.0.101 (192.168.0.101)' can't be established.
+ECDSA key fingerprint is SHA256:cSfd4aGoa/wT/oaebwo7brlPe26taChEeUa5xGiVUD4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.0.101' (ECDSA) to the list of known hosts.
+root@192.168.0.101's password: 
+
+kali@kali:~$ ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:1f:30:76 brd ff:ff:ff:ff:ff:ff
+4: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN mode DEFAULT group default qlen 100
+    link/none 
+kali@kali:~$ # mac address is 08:00:27:1f:30:76
+kali@kali:~$ ping http://www.debian.org
+ping: http://www.debian.org: Name or service not known
+kali@kali:~$ ping debian.org
+PING debian.org (128.31.0.62) 56(84) bytes of data.
+64 bytes from mirror-csail.debian.org (128.31.0.62): icmp_seq=1 ttl=48 time=112 ms
+64 bytes from mirror-csail.debian.org (128.31.0.62): icmp_seq=2 ttl=48 time=113 ms
+^C
+--- debian.org ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 111.715/112.598/113.481/0.883 ms
+kali@kali:~$ traceroute http://www.ubuntu.com
+http://www.ubuntu.com: Name or service not known
+Cannot handle "host" cmdline arg `http://www.ubuntu.com' on position 1 (argc 1)
+kali@kali:~$ traceroute ubuntu.com
+traceroute to ubuntu.com (91.189.91.45), 30 hops max, 60 byte packets
+  1    <1 ms    <1 ms     *     192.168.0.1
+  2   101 ms    17 ms    14 ms  <redacted out>
+  3    <1 ms    <1 ms    <1 ms  <redacted out>
+  4     1 ms     1 ms     1 ms  <redacted out>
+  5    13 ms    13 ms    13 ms  <redacted out>
+  6    32 ms    32 ms    32 ms  100ge8-2.core1.ams1.he.net [184.105.65.125]
+  7    39 ms    39 ms    39 ms  100ge16-1.core1.lon2.he.net [72.52.92.213]
+  8   105 ms   105 ms   105 ms  100ge13-2.core1.nyc4.he.net [72.52.92.166]
+  9   105 ms   107 ms   105 ms  ve951.core2.nyc4.he.net [184.104.195.170]
+ 10   110 ms   110 ms   110 ms  100ge3-2.core1.bos1.he.net [184.105.64.54]
+ 11   110 ms   110 ms   110 ms  209.51.171.154
+ 12   110 ms   110 ms   110 ms  fautso.canonical.com [91.189.91.45]
+kali@kali:~$ 
