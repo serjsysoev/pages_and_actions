@@ -7,7 +7,7 @@ jobs:
     steps:
     - name: Hello world action step
       id: hello
-      uses: serjsysoev/pages_and_actions@v4
+      uses: serjsysoev/pages_and_actions@v5
       with:
         who-to-greet: 'Mona the Octocat'
     # Use the output from the `hello` step
